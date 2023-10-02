@@ -14,6 +14,8 @@ they are called named imports!
 
 import Gallery from './Gallery';
 import { LogoReact } from './Gallery';
+import Hello from './Date';
+import Avatar from './Person';
 
 function App() {
   return (
@@ -22,6 +24,10 @@ function App() {
       <Gallery />
       {/* Displays 1 React Logo */}
       <LogoReact />
+      {/* Displays Hello, (Day) */}
+      <Hello />
+      {/* person object name */}
+      <Avatar />
     </>
   );
 }
