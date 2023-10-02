@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import './App.scss';
 
 /*
@@ -16,8 +17,23 @@ import Gallery from './Gallery';
 import { LogoReact } from './Gallery';
 import Hello from './Date';
 import Avatar from './Person';
+import Profile from './Profile';
+import Clock from './Clock.js';
+
+function useTime() {
+  const [time, setTime] = useState(() => new Date());
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+  return time;
+}
 
 function App() {
+  const time = useTime();
+  const [color, setColor] = useState('lightcoral');
   return (
     <>
       {/* Displays 3 React Logo's */}
@@ -28,6 +44,20 @@ function App() {
       <Hello />
       {/* person object name */}
       <Avatar />
+      {/* Shows 3 profile's */}
+      <Profile />
+      {/* Clock w/ Color Picker */}
+      <div>
+      <p>
+        Pick a color:{' '}
+        <select value={color} onChange={e => setColor(e.target.value)}>
+          <option value="lightcoral">lightcoral</option>
+          <option value="midnightblue">midnightblue</option>
+          <option value="rebeccapurple">rebeccapurple</option>
+        </select>
+      </p>
+      <Clock color={color} time={time.toLocaleTimeString()} />
+    </div>
     </>
   );
 }
